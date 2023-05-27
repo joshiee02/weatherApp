@@ -4,9 +4,93 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
   <title>Document</title>
+  <link
+  rel="stylesheet"
+  href="https://unpkg.com/swiper/swiper-bundle.min.css"
+/>
 </head>
 <body>
-  <script src="/dist/bundle.js"></script>
+  <div id="city">Paris</div>
+  <div>
+    <div id="date">Friday, 20 January</div>
+    <div id="weather">Sunny</div>
+  </div>
+  <div id="temperature">31°</div> 
+  <div id="status">
+    <div id="dailySummary">Daily Summary</div>
+    <p>Now it feels like +35°, actually +31°. <br>
+      It feels hot because of the direct sun. Today, <br>
+      the temperature is felt in the range from
+      +31° to 27°.
+    </p>
+  </div>
+  <div id="weatherInfo">
+    <div id="wind">
+      <i class="las la-wind"></i>
+      <div id="windSpeed">4km/h</div>
+      <h6>Wind</h6>
+    </div>
+    <div id="humidity">
+      <i class="las la-tint"></i>
+      <div id="humidity">48%</div>
+      <h6>Humidity</h6>
+    </div>
+    <div id="visibility">
+      <i class="las la-eye"></i>
+      <div id="visibility">1.6km</div>
+      <h6>Visibility</h6>
+    </div>
+  </div>
+  <div id="weeklyForecast">
+    <h2>Weekly forecast</h2>
+    <img id="arrow" src="/src/img/long-arrow.svg" alt="">
+  </div>
+
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <div class="forecastTemp" id="forecastTemp1">26°</div>
+        <i class="las la-sun"></i>
+        <div class="forecastDate" id="forecastDate1">21 Jan</div>
+    </div>
+      <div class="swiper-slide">
+        <div class="forecastTemp" id="forecastTemp1">26°</div>
+        <i class="las la-cloud-sun"></i>
+        <div class="forecastDate" id="forecastDate1">21 Jan</div>
+      </div>
+      <div class="swiper-slide">
+        <div class="forecastTemp" id="forecastTemp1">26°</div>
+        <i class="las la-cloud-rain"></i>
+        <div class="forecastDate" id="forecastDate1">21 Jan</div>
+      </div>
+      <div class="swiper-slide">
+        <div class="forecastTemp" id="forecastTemp1">26°</div>
+        <i class="las la-bolt"></i>
+        <div class="forecastDate" id="forecastDate1">21 Jan</div>
+      </div>
+      <div class="swiper-slide">
+        <div class="forecastTemp" id="forecastTemp1">26°</div>
+        <i class="las la-sun"></i>
+        <div class="forecastDate" id="forecastDate1">21 Jan</div>
+      </div>
+      <div class="swiper-slide">
+        <div class="forecastTemp" id="forecastTemp1">26°</div>
+        <i class="las la-sun"></i>
+        <div class="forecastDate" id="forecastDate1">21 Jan</div>
+      </div>
+      <div class="swiper-slide">
+        <div class="forecastTemp" id="forecastTemp1">26°</div>
+        <i class="las la-sun"></i>
+        <div class="forecastDate" id="forecastDate1">21 Jan</div>
+      </div>
+    </div>
+</div>
+
+
+</div>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="/dist/bundle.js"></script>
 </body>
 </html>
