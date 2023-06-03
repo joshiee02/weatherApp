@@ -1,4 +1,5 @@
 import './style.css';
+import { format, parse } from 'date-fns';
 
 document.addEventListener('DOMContentLoaded', () => {
   const swiper = new Swiper('.swiper-container', {
@@ -13,13 +14,13 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-let weatherData;
+let data;
 
 async function fetchData(url) {
   try {
     const response = await fetch(url);
-    const data = await response.json();
-    return data;
+    const returnData = await response.json();
+    return returnData;
   } catch (err) {
     return null;
   }
@@ -29,9 +30,8 @@ async function fetchData(url) {
 async function getTemperature() {
   try {
     const temperature = document.querySelector('#temperature');
-    temperature.textContent = `${weatherData.current.temp_c}°`;
-    console.log(weatherData);
-    console.log(weatherData.forecast.forecastday[0].day.maxtemp_c);
+    temperature.textContent = `${data.current.temp_c}°`;
+    console.log(data);
   } catch (err) {
     console.log(err);
   }
@@ -43,7 +43,7 @@ async function getDailySummary() {
     const dailySummary = document.querySelector('#dailySummary + p');
     dailySummary.textContent = '';
 
-    const s1 = document.createTextNode(`Now it feels like +${weatherData.current.feelslike_c}°, actually +${weatherData.current.temp_c}°. `);
+    const s1 = document.createTextNode(`Now it feels like +${data.current.feelslike_c}°, actually +${data.current.temp_c}°. `);
     dailySummary.appendChild(s1);
 
     const br1 = document.createElement('br');
@@ -55,15 +55,38 @@ async function getDailySummary() {
     const br2 = document.createElement('br');
     dailySummary.appendChild(br2);
 
-    const s3 = document.createTextNode(`the temperature is felt in the range from +${weatherData.forecast.forecastday[0].day.mintemp_c}° to ${weatherData.forecast.forecastday[0].day.maxtemp_c}°.`);
+    const s3 = document.createTextNode(`the temperature is felt in the range from +${data.forecast.forecastday[0].day.mintemp_c}° to ${data.forecast.forecastday[0].day.maxtemp_c}°.`);
     dailySummary.appendChild(s3);
   } catch (err) {
     console.log(err);
   }
 }
 
+// gets the location of the weather
+async function getLocation() {
+  try {
+    const city = document.querySelector('#city');
+    city.textContent = data.location.name;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+async function getDate() {
+  try {
+    const date = document.querySelector('#date');
+    const currentDate = parse(data.location.localtime, 'yyyy-MM-dd HH:mm', new Date());
+    const formattedDate = format(currentDate, 'EEEE, MMMM d');
+    date.textContent = formattedDate;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 (async function runsAtStart() {
-  weatherData = await fetchData('http://api.weatherapi.com/v1/forecast.json?key=5d8ec60449724cc5ad342032232605&q=Davao')
+  data = await fetchData('http://api.weatherapi.com/v1/forecast.json?key=5d8ec60449724cc5ad342032232605&q=Davao City')
   getTemperature();
   getDailySummary();
+  getLocation();
+  getDate();
 }());
