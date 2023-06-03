@@ -40,6 +40,16 @@ async function getTemperature() {
 // gets today summary
 async function getDailySummary() {
   try {
+    // get weatherInfo and change the first letter into upperCase
+    const weather = document.querySelector('#weather');
+    const string = data.forecast.forecastday[0].day.condition.text;
+    const upperCase = string
+      .split(' ')
+      .map((word) => word[0].toUpperCase() + word.slice(1))
+      .join(' ');
+    weather.textContent = upperCase;
+
+    // update dailySummary;
     const dailySummary = document.querySelector('#dailySummary + p');
     dailySummary.textContent = '';
 
@@ -84,7 +94,7 @@ async function getDate() {
 }
 
 (async function runsAtStart() {
-  data = await fetchData('http://api.weatherapi.com/v1/forecast.json?key=5d8ec60449724cc5ad342032232605&q=Davao City')
+  data = await fetchData('http://api.weatherapi.com/v1/forecast.json?key=5d8ec60449724cc5ad342032232605&q=Davao')
   getTemperature();
   getDailySummary();
   getLocation();
