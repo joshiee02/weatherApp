@@ -143,14 +143,14 @@ h6 {
 	font-family: 'SF-Compact-Thin';
 }
 
-#weeklyForecast {
+#todayForecast {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: flex-start;
 	width: 90%;
 }
-#weeklyForecast > h2 {
+#todayForecast > h2 {
 	padding-top: 0.5rem;
 	font-size: 1.15rem;
 	letter-spacing: 0.5px;
