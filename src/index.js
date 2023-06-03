@@ -42,7 +42,7 @@ async function getDailySummary() {
   try {
     // get weatherInfo and change the first letter into upperCase
     const weather = document.querySelector('#weather');
-    const string = data.forecast.forecastday[0].day.condition.text;
+    const string = data.current.condition.text;
     const upperCase = string
       .split(' ')
       .map((word) => word[0].toUpperCase() + word.slice(1))
@@ -109,7 +109,7 @@ async function getWeatherInfo() {
 }
 
 (async function runsAtStart() {
-  data = await fetchData('http://api.weatherapi.com/v1/forecast.json?key=5d8ec60449724cc5ad342032232605&q=Kikugawa');
+  data = await fetchData('http://api.weatherapi.com/v1/forecast.json?key=5d8ec60449724cc5ad342032232605&q=Davao City');
   getTemperature();
   getDailySummary();
   getLocation();
