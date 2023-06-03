@@ -93,10 +93,26 @@ async function getDate() {
   }
 }
 
+async function getWeatherInfo() {
+  try {
+    const windSpeed = document.querySelector('#windSpeedData');
+    windSpeed.textContent = `${data.current.wind_kph}km/h`;
+
+    const humidity = document.querySelector('#humidityData');
+    humidity.textContent = `${data.current.humidity}%`;
+
+    const visibility = document.querySelector('#visibilityData');
+    visibility.textContent = `${data.current.vis_km}km`;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 (async function runsAtStart() {
-  data = await fetchData('http://api.weatherapi.com/v1/forecast.json?key=5d8ec60449724cc5ad342032232605&q=Davao')
+  data = await fetchData('http://api.weatherapi.com/v1/forecast.json?key=5d8ec60449724cc5ad342032232605&q=Kikugawa');
   getTemperature();
   getDailySummary();
   getLocation();
   getDate();
+  getWeatherInfo();
 }());
