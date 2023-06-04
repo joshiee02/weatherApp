@@ -31,84 +31,64 @@ async function fetchData(url) {
 
 // gets today temperature
 function getTemperature() {
-  try {
-    const temperature = document.querySelector('#temperature');
-    temperature.textContent = `${data.current.temp_c}°`;
-    console.log(data);
-  } catch (err) {
-    console.log(err);
-  }
+  const temperature = document.querySelector('#temperature');
+  temperature.textContent = `${data.current.temp_c}°`;
+  console.log(data);
 }
 
 // gets today summary
 function getDailySummary() {
-  try {
-    // get weatherInfo and change the first letter into upperCase
-    const weather = document.querySelector('#weather');
-    const string = data.current.condition.text;
-    const upperCase = string
-      .split(' ')
-      .map((word) => word[0].toUpperCase() + word.slice(1))
-      .join(' ');
-    weather.textContent = upperCase;
+  // get weatherInfo and change the first letter into upperCase
+  const weather = document.querySelector('#weather');
+  const string = data.current.condition.text;
+  const upperCase = string
+    .split(' ')
+    .map((word) => word[0].toUpperCase() + word.slice(1))
+    .join(' ');
+  weather.textContent = upperCase;
 
-    // update dailySummary;
-    const dailySummary = document.querySelector('#dailySummary + p');
-    dailySummary.textContent = '';
+  // update dailySummary;
+  const dailySummary = document.querySelector('#dailySummary + p');
+  dailySummary.textContent = '';
 
-    const s1 = document.createTextNode(`Now it feels like +${data.current.feelslike_c}°, actually +${data.current.temp_c}°. `);
-    dailySummary.appendChild(s1);
+  const s1 = document.createTextNode(`Now it feels like +${data.current.feelslike_c}°, actually +${data.current.temp_c}°. `);
+  dailySummary.appendChild(s1);
 
-    const br1 = document.createElement('br');
-    dailySummary.appendChild(br1);
+  const br1 = document.createElement('br');
+  dailySummary.appendChild(br1);
 
-    const s2 = document.createTextNode('It feels hot because of the direct sun. Today, ');
-    dailySummary.appendChild(s2);
+  const s2 = document.createTextNode('It feels hot because of the direct sun. Today, ');
+  dailySummary.appendChild(s2);
 
-    const br2 = document.createElement('br');
-    dailySummary.appendChild(br2);
+  const br2 = document.createElement('br');
+  dailySummary.appendChild(br2);
 
-    const s3 = document.createTextNode(`the temperature is felt in the range from +${data.forecast.forecastday[0].day.mintemp_c}° to ${data.forecast.forecastday[0].day.maxtemp_c}°.`);
-    dailySummary.appendChild(s3);
-  } catch (err) {
-    console.log(err);
-  }
+  const s3 = document.createTextNode(`the temperature is felt in the range from +${data.forecast.forecastday[0].day.mintemp_c}° to ${data.forecast.forecastday[0].day.maxtemp_c}°.`);
+  dailySummary.appendChild(s3);
 }
 
 // gets the location of the weather
 function getLocation() {
-  try {
-    const city = document.querySelector('#city');
-    city.textContent = data.location.name;
-  } catch (err) {
-    console.log(err);
-  }
+  const city = document.querySelector('#city');
+  city.textContent = data.location.name;
 }
 
 function getDate() {
-  try {
-    const date = document.querySelector('#date');
-    const currentDate = parse(data.location.localtime, 'yyyy-MM-dd HH:mm', new Date());
-    const formattedDate = format(currentDate, 'EEEE, MMMM d');
-    date.textContent = formattedDate;
-  } catch (err) {
-    console.log(err);
-  }
+  const date = document.querySelector('#date');
+  const currentDate = parse(data.location.localtime, 'yyyy-MM-dd HH:mm', new Date());
+  const formattedDate = format(currentDate, 'EEEE, MMMM d');
+  date.textContent = formattedDate;
 }
 
 function getWeatherInfo() {
-  try {
-    const windSpeed = document.querySelector('#windSpeedData');
-    windSpeed.textContent = `${data.current.wind_kph}km/h`;
+  const windSpeed = document.querySelector('#windSpeedData');
+  windSpeed.textContent = `${data.current.wind_kph}km/h`;
 
-    const humidity = document.querySelector('#humidityData');
-    humidity.textContent = `${data.current.humidity}%`;
+  const humidity = document.querySelector('#humidityData');
+  humidity.textContent = `${data.current.humidity}%`;
 
-    const visibility = document.querySelector('#visibilityData');
-    visibility.textContent = `${data.current.vis_km}km`;
-  } catch (err) {
-    console.log(err);
-  }
+  const visibility = document.querySelector('#visibilityData');
+  visibility.textContent = `${data.current.vis_km}km`;
 }
 
 function getTodayForecast() {
@@ -162,7 +142,7 @@ function createSlide(temp, icon, time) {
   swiper.classList.add('swiper-slide');
 
   const forecastTemp = document.createElement('div');
-  forecastTemp.classList.add('forecastTemp')
+  forecastTemp.classList.add('forecastTemp');
   forecastTemp.textContent = `${temp}°`;
 
   const forecastIcon = document.createElement('i');
