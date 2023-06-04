@@ -146,18 +146,22 @@ h6 {
 #todayForecast {
 	display: flex;
 	flex-direction: row;
+	align-items: center;
 	justify-content: space-between;
-	align-items: flex-start;
 	width: 90%;
 }
 #todayForecast > h2 {
-	padding-top: 0.5rem;
 	font-size: 1.15rem;
 	letter-spacing: 0.5px;
 	font-weight: bold;
 }
 img {
 	width: 50px;
+	transform: rotate(1turn);
+	transition: transform 0.75s ease;
+}
+.backArrow {
+	transform: rotate(0.5turn);
 }
 
 .swiper-container {
