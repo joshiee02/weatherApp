@@ -6,26 +6,42 @@ import Swiper, { Navigation } from 'swiper';
 Swiper.use([Navigation]);
 document.addEventListener('DOMContentLoaded', () => {
   // eslint-disable-next-line no-new
-  setTimeout(() => {
-    const swiper = new Swiper('.swiper-container', {
-      slidesPerView: 4,
-      spaceBetween: 20,
-      allowTouchMove: true,
-      slidesPerGroup: 4,
-      speed: 750,
-    });
+  const swiper = new Swiper('.swiper-container', {
+    slidesPerView: 4,
+    spaceBetween: 20,
+    allowTouchMove: true,
+    slidesPerGroup: 4,
+    speed: 750,
 
-    document.querySelector('#arrow').addEventListener('click', () => {
-      if (swiper.isBeginning) {
-        swiper.slideNext();
-        document.querySelector('#arrow').classList.add('backArrow');
-      } else {
-        swiper.slidePrev();
-        document.querySelector('#arrow').classList.remove('backArrow');
-      }
-    });
+    // Different settings for different screen sizes
+    breakpoints: {
+      // When the screen width is >= 640px
+      640: {
+        slidesPerView: 5,
+        spaceBetween: 20,
+      },
+      // When the screen width is >= 768px
+      768: {
+        slidesPerView: 6,
+        spaceBetween: 30,
+      },
+      1024: {
+        slidesPerView: 7,
+        spaceBetween: 30,
+      },
+    },
   });
-}, 1000);
+
+  document.querySelector('#arrow').addEventListener('click', () => {
+    if (swiper.isBeginning) {
+      swiper.slideNext();
+      document.querySelector('#arrow').classList.add('backArrow');
+    } else {
+      swiper.slidePrev();
+      document.querySelector('#arrow').classList.remove('backArrow');
+    }
+  });
+});
 
 let data;
 
@@ -182,11 +198,11 @@ function createCarousel() {
 
 (async function runsAtStart() {
   data = await fetchData('https://api.weatherapi.com/v1/forecast.json?key=5d8ec60449724cc5ad342032232605&q=Davao City&days=2');
+  createCarousel();
   getTemperature();
   getDailySummary();
   getLocation();
   getDate();
   getWeatherInfo();
   getTodayForecast();
-  createCarousel();
 }());
