@@ -14,6 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
     speed: 750,
   });
 
+  swiper.update();
+
   document.querySelector('#arrow').addEventListener('click', () => {
     if (swiper.isBeginning) {
       swiper.slideNext();
