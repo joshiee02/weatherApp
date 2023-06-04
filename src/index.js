@@ -6,26 +6,26 @@ import Swiper, { Navigation } from 'swiper';
 Swiper.use([Navigation]);
 document.addEventListener('DOMContentLoaded', () => {
   // eslint-disable-next-line no-new
-  const swiper = new Swiper('.swiper-container', {
-    slidesPerView: 4,
-    spaceBetween: 20,
-    allowTouchMove: true,
-    slidesPerGroup: 4,
-    speed: 750,
-  });
+  setTimeout(() => {
+    const swiper = new Swiper('.swiper-container', {
+      slidesPerView: 4,
+      spaceBetween: 20,
+      allowTouchMove: true,
+      slidesPerGroup: 4,
+      speed: 750,
+    });
 
-  swiper.update();
-
-  document.querySelector('#arrow').addEventListener('click', () => {
-    if (swiper.isBeginning) {
-      swiper.slideNext();
-      document.querySelector('#arrow').classList.add('backArrow');
-    } else {
-      swiper.slidePrev();
-      document.querySelector('#arrow').classList.remove('backArrow');
-    }
+    document.querySelector('#arrow').addEventListener('click', () => {
+      if (swiper.isBeginning) {
+        swiper.slideNext();
+        document.querySelector('#arrow').classList.add('backArrow');
+      } else {
+        swiper.slidePrev();
+        document.querySelector('#arrow').classList.remove('backArrow');
+      }
+    });
   });
-});
+}, 1000);
 
 let data;
 
