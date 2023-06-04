@@ -11,8 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
     spaceBetween: 20,
     allowTouchMove: true,
     slidesPerGroup: 4,
+    speed: 750,
   });
-  
+
   document.querySelector('#arrow').addEventListener('click', () => {
     if (swiper.isBeginning) {
       swiper.slideNext();
