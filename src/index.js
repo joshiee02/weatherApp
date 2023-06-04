@@ -9,11 +9,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const swiper = new Swiper('.swiper-container', {
     slidesPerView: 4,
     spaceBetween: 20,
-    navigation: {
-      nextEl: '#arrow',
-    },
     allowTouchMove: true,
     slidesPerGroup: 4,
+  });
+  
+  document.querySelector('#arrow').addEventListener('click', () => {
+    if (swiper.isBeginning) {
+      swiper.slideNext();
+      document.querySelector('#arrow').classList.add('backArrow');
+    } else {
+      swiper.slidePrev();
+      document.querySelector('#arrow').classList.remove('backArrow');
+    }
   });
 });
 
