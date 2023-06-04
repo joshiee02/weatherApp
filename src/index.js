@@ -179,7 +179,7 @@ function createCarousel() {
 }
 
 (async function runsAtStart() {
-  data = await fetchData('http://api.weatherapi.com/v1/forecast.json?key=5d8ec60449724cc5ad342032232605&q=Davao City&days=2');
+  data = await fetchData('https://api.weatherapi.com/v1/forecast.json?key=5d8ec60449724cc5ad342032232605&q=Davao City&days=2');
   getTemperature();
   getDailySummary();
   getLocation();
