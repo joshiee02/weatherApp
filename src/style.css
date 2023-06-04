@@ -1,0 +1,191 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+	box-sizing: border-box;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* main css */
+
+/* fonts used */
+@import url('https://fonts.googleapis.com/css2?family=Ledger&display=swap');
+@font-face {
+	font-family: 'SF-Compact';
+	src: url(./fonts/sf-compact-display-med.woff) format('woff');
+}
+@font-face {
+	font-family: 'SF-Compact-Thin';
+	src: url(./fonts/sf-compact-display-thin.woff) format('woff');
+}
+
+
+body {
+	height: 99.8vh;
+	padding: 4rem 1rem 1.5rem;
+	background-color: #FEE142;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	font-family: 'SF-Compact';
+}
+
+body > div {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1rem;
+}
+
+#city {
+	font-size: 1.5rem;
+	font-weight: bold;
+}
+
+#date {
+	font-size: 0.8rem;
+	font-family: 'SF-Compact-Thin';
+	padding: 0.25rem 1rem;
+	border-radius: 16px;
+	background-color: black;
+	color: #FEE142;
+}
+
+#temperature {
+	font-size: 12rem;
+}
+
+#status {
+	margin-left: 1.3rem;
+	width: 80%;
+	display: flex;
+	align-self: flex-start;
+	align-items: flex-start;
+	letter-spacing: 0.3px;
+	line-height: 17.5px;
+}
+#dailySummary {
+	font-weight: bold;
+}
+p {
+	font-size: 0.8rem;
+}
+
+#weatherInfo {
+	gap: 0;
+	display: flex;
+	flex-direction: row;
+	color: #FEE142;
+	width: 90%;
+	height: 15%;
+	border-radius: 12px;
+	background-color: black;
+}
+#weatherInfo > div {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	flex: 1;
+	height: 100%;
+	letter-spacing: 1px;
+}
+i {
+	font-size: 2.5rem;
+	padding: 1rem;
+}
+h6 {
+	margin-top: 0.4rem;
+	font-size: 0.65rem;
+	font-family: 'SF-Compact-Thin';
+}
+
+#todayForecast {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	width: 90%;
+}
+#todayForecast > h2 {
+	font-size: 1.15rem;
+	letter-spacing: 0.5px;
+	font-weight: bold;
+}
+img {
+	width: 50px;
+	transform: rotate(1turn);
+	transition: transform 0.75s ease;
+}
+.backArrow {
+	transform: rotate(0.5turn);
+}
+
+.swiper-container {
+	overflow: hidden;
+	width: 90.5%;
+	height: 15%;
+}
+.swiper-slide {
+	padding: 1rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	border-radius: 10px;
+	height: 100%;
+	border: 2px solid black;
+}
+
+.forecastTemp {
+	font-size: 1.3rem;
+}
+.swiper-slide > i {
+	font-size: 1.5rem;
+}
+.forecastTime {
+	font-size: 0.8rem;
+}
