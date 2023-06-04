@@ -1,11 +1,12 @@
 import 'swiper/swiper-bundle.min.css';
 import './style.css';
 import { format, parse, parseISO } from 'date-fns';
-import Swiper from 'swiper';
+import Swiper, { Navigation } from 'swiper';
 
+Swiper.use([Navigation]);
 document.addEventListener('DOMContentLoaded', () => {
   // eslint-disable-next-line no-new
-  new Swiper('.swiper-container', {
+  const swiper = new Swiper('.swiper-container', {
     slidesPerView: 4,
     spaceBetween: 20,
     navigation: {
@@ -138,11 +139,7 @@ function getTodayForecast() {
 }
 
 function getIcon(param) {
-  // const rainChance = param.chance_of_rain;
-  // const { cloud } = param;
-  // const willRain = param.will_it_rain;
   let icon;
-
   // sunny
   if (param.chance_of_rain === 0 && param.cloud < 50 && !param.will_it_rain) {
     icon = 'las la-sun';
