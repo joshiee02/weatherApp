@@ -1,16 +1,18 @@
+import 'swiper/swiper-bundle.min.css';
 import './style.css';
-import { format, parse } from 'date-fns';
+import { format, parse, parseISO } from 'date-fns';
+import Swiper from 'swiper';
 
 document.addEventListener('DOMContentLoaded', () => {
-  const swiper = new Swiper('.swiper-container', {
+  // eslint-disable-next-line no-new
+  new Swiper('.swiper-container', {
     slidesPerView: 4,
     spaceBetween: 20,
-    // adjust as needed for the gap between slides
     navigation: {
       nextEl: '#arrow',
     },
     allowTouchMove: true,
-    slidesPerGroup: 3,
+    slidesPerGroup: 4,
   });
 });
 
@@ -27,7 +29,7 @@ async function fetchData(url) {
 }
 
 // gets today temperature
-async function getTemperature() {
+function getTemperature() {
   try {
     const temperature = document.querySelector('#temperature');
     temperature.textContent = `${data.current.temp_c}°`;
@@ -38,7 +40,7 @@ async function getTemperature() {
 }
 
 // gets today summary
-async function getDailySummary() {
+function getDailySummary() {
   try {
     // get weatherInfo and change the first letter into upperCase
     const weather = document.querySelector('#weather');
@@ -73,7 +75,7 @@ async function getDailySummary() {
 }
 
 // gets the location of the weather
-async function getLocation() {
+function getLocation() {
   try {
     const city = document.querySelector('#city');
     city.textContent = data.location.name;
@@ -82,7 +84,7 @@ async function getLocation() {
   }
 }
 
-async function getDate() {
+function getDate() {
   try {
     const date = document.querySelector('#date');
     const currentDate = parse(data.location.localtime, 'yyyy-MM-dd HH:mm', new Date());
@@ -93,7 +95,7 @@ async function getDate() {
   }
 }
 
-async function getWeatherInfo() {
+function getWeatherInfo() {
   try {
     const windSpeed = document.querySelector('#windSpeedData');
     windSpeed.textContent = `${data.current.wind_kph}km/h`;
@@ -108,11 +110,96 @@ async function getWeatherInfo() {
   }
 }
 
+function getTodayForecast() {
+  function validateData(arr) {
+    // if the array doesn't reach 10 length, add the tomorrow forecast
+    if (arr.length < 8) {
+      for (let i = 0; arr.length < 8; i += 1) {
+        const tomorrowForecast = data.forecast.forecastday[1].hour;
+        arr.push(tomorrowForecast[i]);
+      }
+    }
+
+    // if array is more than 10 length, reduce it to 10 equally
+    const result = [];
+    const step = arr.length / 8;
+    for (let i = 0; i < 8; i += 1) {
+      result.push(arr[Math.round(i * step)]);
+    }
+    return result;
+  }
+  // filter the available hours to forecast based on current time
+  const filteredHours = data.forecast.forecastday[0].hour.filter(
+    (hour) => data.location.localtime < hour.time,
+  );
+
+  const forecastHours = validateData(filteredHours);
+  return forecastHours;
+}
+
+function getIcon(param) {
+  // const rainChance = param.chance_of_rain;
+  // const { cloud } = param;
+  // const willRain = param.will_it_rain;
+  let icon;
+
+  // sunny
+  if (param.chance_of_rain === 0 && param.cloud < 50 && !param.will_it_rain) {
+    icon = 'las la-sun';
+  // cloudy
+  } else if (param.chance_of_rain < 50 && param.cloud > 50 && !param.will_it_rain) {
+    icon = 'las la-cloud-sun';
+  // might rain
+  } else if (param.chance_of_rain > 50 && param.cloud >= 50 && !param.will_it_rain) {
+    icon = 'las la-cloud-rain';
+  // rain
+  } else if (param.chance_of_rain > 50 && param.cloud >= 50 && param.will_it_rain) {
+    icon = 'las la-tint';
+  }
+  return icon;
+}
+
+function createSlide(temp, icon, time) {
+  const swiperWrapper = document.querySelector('.swiper-wrapper');
+  const swiper = document.createElement('div');
+  swiper.classList.add('swiper-slide');
+
+  const forecastTemp = document.createElement('div');
+  forecastTemp.classList.add('forecastTemp')
+  forecastTemp.textContent = `${temp}°`;
+
+  const forecastIcon = document.createElement('i');
+  const iconClass = getIcon(icon);
+  forecastIcon.classList.add(...iconClass.split(' '));
+
+  const forecastTime = document.createElement('div');
+  forecastTime.classList.add('forecastTime');
+  const formattedTime = format(parseISO(time), 'h aa');
+  forecastTime.textContent = formattedTime;
+
+  swiper.appendChild(forecastTemp);
+  swiper.appendChild(forecastIcon);
+  swiper.appendChild(forecastTime);
+  swiperWrapper.appendChild(swiper);
+}
+
+function createCarousel() {
+  const forecastHours = getTodayForecast();
+  console.log(forecastHours);
+
+  for (let i = 0; i < forecastHours.length; i += 1) {
+    createSlide(forecastHours[i].temp_c, forecastHours[i], forecastHours[i].time);
+    console.log(i);
+  }
+}
+
 (async function runsAtStart() {
-  data = await fetchData('http://api.weatherapi.com/v1/forecast.json?key=5d8ec60449724cc5ad342032232605&q=Davao City');
+  data = await fetchData('http://api.weatherapi.com/v1/forecast.json?key=5d8ec60449724cc5ad342032232605&q=Davao City&days=2');
   getTemperature();
   getDailySummary();
   getLocation();
   getDate();
   getWeatherInfo();
+  getTodayForecast();
+  createCarousel();
 }());
