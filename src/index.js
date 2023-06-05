@@ -1,7 +1,7 @@
-import 'swiper/swiper-bundle.min.css';
-import './style.css';
 import { format, parse, parseISO } from 'date-fns';
 import Swiper, { Navigation } from 'swiper';
+import 'swiper/swiper-bundle.min.css';
+import './style.css';
 
 Swiper.use([Navigation]);
 document.addEventListener('DOMContentLoaded', () => {
@@ -43,8 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-let data;
-
 async function fetchData(url) {
   try {
     const response = await fetch(url);
@@ -54,6 +52,8 @@ async function fetchData(url) {
     return null;
   }
 }
+
+let data = await fetchData('https://api.weatherapi.com/v1/forecast.json?key=5d8ec60449724cc5ad342032232605&q=Davao City&days=2');
 
 // gets today temperature
 function getTemperature() {
@@ -196,8 +196,7 @@ function createCarousel() {
   }
 }
 
-(async function runsAtStart() {
-  data = await fetchData('https://api.weatherapi.com/v1/forecast.json?key=5d8ec60449724cc5ad342032232605&q=Davao City&days=2');
+(function () {
   createCarousel();
   getTemperature();
   getDailySummary();
