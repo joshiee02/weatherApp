@@ -53,7 +53,7 @@ async function fetchData(url) {
   }
 }
 
-let data = await fetchData('https://api.weatherapi.com/v1/forecast.json?key=5d8ec60449724cc5ad342032232605&q=Davao City&days=2');
+const data = await fetchData('https://api.weatherapi.com/v1/forecast.json?key=5d8ec60449724cc5ad342032232605&q=Davao City&days=2');
 
 // gets today temperature
 function getTemperature() {
@@ -196,12 +196,11 @@ function createCarousel() {
   }
 }
 
-(function () {
-  createCarousel();
+(function runsAtStart() {
   getTemperature();
   getDailySummary();
   getLocation();
   getDate();
   getWeatherInfo();
-  getTodayForecast();
+  createCarousel();
 }());
