@@ -3,10 +3,12 @@ import Swiper, { Navigation } from 'swiper';
 import 'swiper/swiper-bundle.min.css';
 import './style.css';
 
+let swiper;
+
 Swiper.use([Navigation]);
 document.addEventListener('DOMContentLoaded', () => {
   // eslint-disable-next-line no-new
-  const swiper = new Swiper('.swiper-container', {
+  swiper = new Swiper('.swiper-container', {
     slidesPerView: 4,
     spaceBetween: 20,
     allowTouchMove: true,
@@ -192,6 +194,7 @@ function createCarousel() {
 
   for (let i = 0; i < forecastHours.length; i += 1) {
     createSlide(forecastHours[i].temp_c, forecastHours[i], forecastHours[i].time);
+    swiper.update();
     console.log(i);
   }
 }
